@@ -1,4 +1,9 @@
-import { useState, useMemo, useEffect } from 'react';
+/**
+ * @license
+ * SPDX-License-Identifier: Apache-2.0
+ */
+
+import { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Building2, 
@@ -158,7 +163,7 @@ export default function App() {
              {activeTab !== 'hero' && (
                <div className="flex flex-col items-end gap-1 relative z-10">
                  <div className="flex items-center bg-white/5 backdrop-blur-md border border-white/10 px-3 py-1 rounded-xl gap-2 transform-gpu">
-                   <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 2, repeat: Infinity }} className="w-1 h-1 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
+                   <motion.div animate={{ opacity: [0.4, 1, 0.4] }} transition={{ duration: 2, repeat: Infinity }} className="w-1 h-1 rounded-full bg-game-emerald shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
                    <span className="text-[9px] uppercase font-black tracking-widest text-white/90">Уровень 1</span>
                  </div>
                </div>
@@ -178,7 +183,7 @@ export default function App() {
                 className="flex flex-col gap-10 py-6"
               >
                 <div className="text-center space-y-1">
-                  <h2 className="text-4xl font-black uppercase italic tracking-tighter bg-gradient-to-r from-white via-blue-500 to-white/50 bg-clip-text text-transparent">Колизей</h2>
+                  <h2 className="text-4xl font-black uppercase italic tracking-tighter bg-gradient-to-r from-white via-game-blue to-white/50 bg-clip-text text-transparent">Колизей</h2>
                   <p className="text-[10px] text-white/30 uppercase tracking-[0.6em] font-bold">Арена славы и крови</p>
                 </div>
 
@@ -202,11 +207,11 @@ export default function App() {
                       </div>
 
                       <div className="relative z-10 flexitems-start gap-4 flex w-full">
-                        <div className="p-4 rounded-2xl bg-white/5 text-white backdrop-blur-md border border-white/10 group-hover:bg-blue-500/20 group-hover:border-blue-500/40 transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.2)]">
+                        <div className="p-4 rounded-2xl bg-white/5 text-white backdrop-blur-md border border-white/10 group-hover:bg-game-blue/20 group-hover:border-game-blue/40 transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.2)]">
                           <mode.icon className="w-6 h-6" />
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h3 className="text-sm font-black uppercase tracking-[0.2em] mb-1 group-hover:text-blue-500 transition-colors">{mode.title}</h3>
+                          <h3 className="text-sm font-black uppercase tracking-[0.2em] mb-1 group-hover:text-game-blue transition-colors">{mode.title}</h3>
                           <div className="flex items-center gap-2 mb-2">
                             <span className="text-[8px] font-bold uppercase tracking-widest text-emerald-400 bg-emerald-400/10 px-2 py-0.5 rounded-md border border-emerald-400/20">Очки: {mode.points}</span>
                             <span className="text-[8px] font-bold uppercase tracking-widest text-amber-400 bg-amber-400/10 px-2 py-0.5 rounded-md border border-amber-400/20">{mode.rank}</span>
@@ -235,7 +240,7 @@ export default function App() {
                 className="flex flex-col gap-10 py-6 h-full"
               >
                 <div className="text-center space-y-1">
-                  <h2 className="text-4xl font-black uppercase italic tracking-tighter bg-gradient-to-r from-white via-amber-500 to-white/50 bg-clip-text text-transparent">Рынок</h2>
+                  <h2 className="text-4xl font-black uppercase italic tracking-tighter bg-gradient-to-r from-white via-game-amber to-white/50 bg-clip-text text-transparent">Рынок</h2>
                   <p className="text-[10px] text-white/30 uppercase tracking-[0.6em] font-bold">Торговые ряды и сокровища</p>
                 </div>
                 
@@ -253,7 +258,7 @@ export default function App() {
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ delay: i * 0.1, ease: "easeOut" }}
                       whileHover={{ y: -8, scale: 1.02 }}
-                      className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-5 flex flex-col items-center gap-5 group cursor-pointer transition-all hover:bg-white/10 hover:border-amber-500/30"
+                      className="bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2.5rem] p-5 flex flex-col items-center gap-5 group cursor-pointer transition-all hover:bg-white/10 hover:border-game-amber/30"
                     >
                       <div className="w-full aspect-square bg-black/40 rounded-[2rem] flex items-center justify-center p-6 border border-white/5 relative overflow-hidden">
                         <div className={`absolute inset-0 opacity-10 blur-2xl ${
@@ -263,15 +268,15 @@ export default function App() {
                         }`} />
                         <Store className={`w-12 h-12 relative z-10 transition-transform group-hover:scale-110 duration-500 ${
                           item.quality === 'epic' ? 'text-purple-400' :
-                          item.quality === 'legendary' ? 'text-amber-500' :
+                          item.quality === 'legendary' ? 'text-game-amber' :
                           item.quality === 'rare' ? 'text-blue-400' : 'text-zinc-400'
                         }`} />
                       </div>
                       <div className="text-center">
                         <h4 className="text-[10px] font-black uppercase tracking-[0.2em] mb-2">{item.name}</h4>
                         <div className="flex items-center justify-center gap-1.5 bg-black/40 py-1.5 px-4 rounded-full border border-white/5">
-                           <span className="text-[11px] font-mono font-bold text-amber-500">{item.price}</span>
-                           <span className="text-[8px] text-amber-500 opacity-60">⭐</span>
+                           <span className="text-[11px] font-mono font-bold text-game-amber">{item.price}</span>
+                           <span className="text-[8px] text-game-amber opacity-60">⭐</span>
                         </div>
                       </div>
                     </motion.div>
@@ -387,7 +392,7 @@ export default function App() {
                       </h2>
                       <div className="flex gap-2 mt-1">
                         <p className="text-[10px] text-white/30 uppercase tracking-[0.4em] font-bold">Уровень 1</p>
-                        <span className="text-[10px] text-emerald-500/60 uppercase tracking-[0.2em] font-black">• {heroRace === 'human' ? 'Человек' : 'Маг'}</span>
+                        <span className="text-[10px] text-game-emerald/60 uppercase tracking-[0.2em] font-black">• {heroRace === 'human' ? 'Человек' : 'Маг'}</span>
                       </div>
                     </div>
                     <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10">
@@ -431,7 +436,7 @@ export default function App() {
                       ].map((stat, i) => (
                         <div key={stat.label} className="flex flex-col border-b border-white/5 pb-2">
                           <p className="text-[7px] uppercase tracking-widest text-white/30 mb-1 whitespace-nowrap">{stat.label}</p>
-                          <p className="text-lg font-black italic text-blue-500">{stat.val}</p>
+                          <p className="text-lg font-black italic text-game-blue">{stat.val}</p>
                         </div>
                       ))}
                     </div>
@@ -493,7 +498,7 @@ export default function App() {
                       {/* Static Info */}
                       <div className="space-y-2 pt-2 border-t border-white/5 text-[9px] uppercase tracking-widest text-white/40">
                         <p>Дата регистрации: <span className="text-white">22.04.2026</span></p>
-                        <p>1 ур. Об. КО <span className="text-blue-500">(0/100)</span></p>
+                        <p>1 ур. Об. КО <span className="text-game-blue">(0/100)</span></p>
                         <p>Достижения: <span className="text-white/20">нету</span></p>
                         <p>Ранг Колизея: <span className="text-white/20">нету</span></p>
                         <p>Сыграно боёв: <span className="text-white">0</span> | п. <span className="text-emerald-400">0</span> | п. <span className="text-red-400">0</span></p>
@@ -546,7 +551,7 @@ export default function App() {
                 className="flex flex-col gap-10 py-6 h-full"
               >
                 <div className="text-center space-y-1">
-                  <h2 className="text-4xl font-black uppercase italic tracking-tighter bg-gradient-to-r from-white via-emerald-500 to-white/50 bg-clip-text text-transparent">Кланы</h2>
+                  <h2 className="text-4xl font-black uppercase italic tracking-tighter bg-gradient-to-r from-white via-game-emerald to-white/50 bg-clip-text text-transparent">Кланы</h2>
                   <p className="text-[10px] text-white/30 uppercase tracking-[0.6em] font-bold">Сила в единстве</p>
                 </div>
 
@@ -554,10 +559,10 @@ export default function App() {
                   <motion.button
                     whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.98 }}
-                    className="flex flex-col items-center gap-2 p-5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] group transition-all hover:bg-emerald-500/10 hover:border-emerald-500/30"
+                    className="flex flex-col items-center gap-2 p-5 bg-white/5 backdrop-blur-xl border border-white/10 rounded-[2rem] group transition-all hover:bg-game-emerald/10 hover:border-game-emerald/30"
                   >
-                    <div className="p-3 bg-emerald-500/10 rounded-2xl group-hover:bg-emerald-500/20 transition-colors">
-                      <Plus className="w-5 h-5 text-emerald-500" />
+                    <div className="p-3 bg-game-emerald/10 rounded-2xl group-hover:bg-game-emerald/20 transition-colors">
+                      <Plus className="w-5 h-5 text-game-emerald" />
                     </div>
                     <span className="text-[9px] uppercase font-black tracking-widest text-white/60 group-hover:text-white">Создать</span>
                   </motion.button>
@@ -593,18 +598,18 @@ export default function App() {
                       whileHover={{ x: 5, backgroundColor: "rgba(255, 255, 255, 0.08)" }}
                       className="bg-white/5 backdrop-blur-xl border border-white/5 p-5 rounded-[2rem] flex items-center gap-5 transition-all cursor-pointer group"
                     >
-                      <div className="w-12 h-12 bg-black/40 rounded-2xl flex items-center justify-center border border-white/5 group-hover:border-emerald-500/30 transition-colors">
-                        <Building2 className="w-6 h-6 text-white/10 group-hover:text-emerald-500 transition-colors" />
+                      <div className="w-12 h-12 bg-black/40 rounded-2xl flex items-center justify-center border border-white/5 group-hover:border-game-emerald/30 transition-colors">
+                        <Building2 className="w-6 h-6 text-white/10 group-hover:text-game-emerald transition-colors" />
                       </div>
                       <div className="flex-1">
                         <h4 className="text-sm font-black uppercase tracking-widest leading-none mb-1.5">{clan.name}</h4>
                         <div className="flex gap-4">
                            <span className="text-[9px] uppercase tracking-widest text-white/20 font-bold">{clan.members}/50 уч.</span>
-                           <span className="text-[9px] uppercase tracking-widest text-emerald-500/60 font-bold">Уровень {clan.level}</span>
+                           <span className="text-[9px] uppercase tracking-widest text-game-emerald/60 font-bold">Уровень {clan.level}</span>
                         </div>
                       </div>
                       <div className="p-2 opacity-0 group-hover:opacity-100 transition-all translate-x-2 group-hover:translate-x-0">
-                        <Trophy className="w-5 h-5 text-emerald-500" />
+                        <Trophy className="w-5 h-5 text-game-emerald" />
                       </div>
                     </motion.div>
                   ))}
@@ -627,241 +632,241 @@ export default function App() {
               </motion.div>
             )}
           </AnimatePresence>
-          </main>
+        </main>
 
-          {/* Settings Overlay */}
-          <AnimatePresence>
-            {isSettingsOpen && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="absolute inset-0 z-[100] bg-black/90 backdrop-blur-2xl p-6 flex flex-col"
-              >
-                <div className="flex items-center justify-between mb-8">
-                  <h2 className="text-2xl font-black uppercase italic tracking-tighter text-white">Настройки</h2>
-                  <button 
-                    onClick={() => setIsSettingsOpen(false)}
-                    className="p-3 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all"
-                  >
-                    <ArrowLeft className="w-5 h-5 text-white" />
-                  </button>
-                </div>
-
-                <div className="flex-1 overflow-y-auto space-y-6 scrollbar-hide pb-20">
-                  {/* Account Settings */}
-                  <div className="space-y-4">
-                    <p className="text-[10px] uppercase font-black tracking-widest text-white/30 pl-2">Аккаунт</p>
-                    <div className="grid gap-3">
-                      <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-2">
-                        <label className="text-[8px] uppercase font-bold text-white/40">Имя пользователя</label>
-                        <div className="flex items-center gap-3">
-                          <UserIcon className="w-4 h-4 text-blue-500" />
-                          <input 
-                            type="text" 
-                            value={username} 
-                            onChange={(e) => setUsername(e.target.value)}
-                            className="bg-transparent border-none p-0 focus:ring-0 text-sm font-bold text-white w-full outline-hidden"
-                          />
-                        </div>
-                      </div>
-                      <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-2">
-                        <label className="text-[8px] uppercase font-bold text-white/40">Пароль</label>
-                        <div className="flex items-center gap-3">
-                          <Lock className="w-4 h-4 text-blue-500" />
-                          <input 
-                            type="password" 
-                            value={password} 
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="bg-transparent border-none p-0 focus:ring-0 text-sm font-bold text-white w-full outline-hidden"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Character Settings */}
-                  <div className="space-y-4">
-                    <p className="text-[10px] uppercase font-black tracking-widest text-white/30 pl-2">Персонаж</p>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-3">
-                        <p className="text-[8px] uppercase font-bold text-white/40">Пол</p>
-                        <div className="flex gap-2">
-                          <button 
-                            onClick={() => setHeroGender('male')}
-                            className={`flex-1 py-2 rounded-xl text-[9px] font-black uppercase transition-all ${heroGender === 'male' ? 'bg-blue-500 text-white' : 'bg-white/5 text-white/40'}`}
-                          >
-                            Муж
-                          </button>
-                          <button 
-                            onClick={() => setHeroGender('female')}
-                            className={`flex-1 py-2 rounded-xl text-[9px] font-black uppercase transition-all ${heroGender === 'female' ? 'bg-blue-500 text-white' : 'bg-white/5 text-white/40'}`}
-                          >
-                            Жен
-                          </button>
-                        </div>
-                      </div>
-                      <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-3">
-                        <p className="text-[8px] uppercase font-bold text-white/40">Раса</p>
-                        <div className="flex gap-2">
-                          <button 
-                            onClick={() => setHeroRace('human')}
-                            className={`flex-1 py-2 rounded-xl text-[9px] font-black uppercase transition-all ${heroRace === 'human' ? 'bg-emerald-500 text-white' : 'bg-white/5 text-white/40'}`}
-                          >
-                            Чел
-                          </button>
-                          <button 
-                            onClick={() => setHeroRace('mage')}
-                            className={`flex-1 py-2 rounded-xl text-[9px] font-black uppercase transition-all ${heroRace === 'mage' ? 'bg-emerald-500 text-white' : 'bg-white/5 text-white/40'}`}
-                          >
-                            Маг
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* System Settings */}
-                  <div className="space-y-4">
-                    <p className="text-[10px] uppercase font-black tracking-widest text-white/30 pl-2">Система</p>
-                    <div className="grid gap-3">
-                      <button 
-                        onClick={toggleFullScreen}
-                        className="w-full bg-white/5 border border-white/10 p-5 rounded-2xl flex items-center justify-between group hover:bg-white/10 transition-all"
-                      >
-                        <div className="flex items-center gap-4">
-                          <Monitor className="w-5 h-5 text-white/40 group-hover:text-white transition-colors" />
-                          <span className="text-xs font-bold uppercase tracking-widest text-white/80 group-hover:text-white">На весь экран</span>
-                        </div>
-                      </button>
-                      <button 
-                        onClick={() => {
-                          setIsSettingsOpen(false);
-                          setScreen('welcome');
-                        }}
-                        className="w-full bg-red-500/10 border border-red-500/20 p-5 rounded-2xl flex items-center justify-between group hover:bg-red-500/20 transition-all"
-                      >
-                        <div className="flex items-center gap-4">
-                          <LogOut className="w-5 h-5 text-red-500/60 group-hover:text-red-500 transition-colors" />
-                          <span className="text-xs font-bold uppercase tracking-widest text-red-500/80 group-hover:text-red-500">Выход из аккаунта</span>
-                        </div>
-                      </button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* UserID at bottom */}
-                <div className="pt-6 border-t border-white/5 text-center">
-                  <p className="text-[10px] uppercase font-black tracking-[0.5em] text-white/10">UserID: {userId}</p>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Inventory Overlay */}
-          <AnimatePresence>
-            {isInventoryOpen && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                className="absolute inset-0 z-[100] bg-black/95 backdrop-blur-2xl p-6 flex flex-col"
-              >
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl font-black uppercase italic tracking-tighter text-amber-500">Инвентарь</h2>
-                  <button 
-                    onClick={() => setIsInventoryOpen(false)}
-                    className="p-3 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all"
-                  >
-                    <ArrowLeft className="w-5 h-5 text-white" />
-                  </button>
-                </div>
-
-                {/* Tabs */}
-                <div className="flex gap-2 overflow-x-auto scrollbar-hide mb-6 pb-2">
-                  {[
-                    { id: 'weapons', label: '1. Оружие' },
-                    { id: 'armor', label: '2. Доспехи' },
-                    { id: 'jewelry', label: '3. Украшения' },
-                    { id: 'potions', label: '4. Зелья и Эликсиры' },
-                    { id: 'misc', label: '5. Руны, Книги и т.д.' },
-                  ].map((tab) => (
-                    <button
-                      key={tab.id}
-                      onClick={() => setInventoryTab(tab.id as any)}
-                      className={`flex-shrink-0 px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap ${
-                        inventoryTab === tab.id 
-                          ? 'bg-amber-500/20 border border-amber-500/50 text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
-                          : 'bg-white/5 border border-white/5 text-white/30 hover:text-white/50'
-                      }`}
-                    >
-                      {tab.label}
-                    </button>
-                  ))}
-                </div>
-
-                <div className="flex-1 overflow-y-auto scrollbar-hide pb-20">
-                  <div className="h-full flex flex-col items-center justify-center p-8 text-center bg-white/5 rounded-[2.5rem] border border-white/5 border-dashed">
-                    <Store className="w-12 h-12 text-white/10 mx-auto mb-4" />
-                    <p className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-black mb-2">Пусто</p>
-                    <p className="text-[8px] uppercase tracking-[0.1em] text-white/20">В этом разделе пока ничего нет</p>
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Persistent Bottom Nav - HUD Interface */}
-          <div className="fixed bottom-0 inset-x-0 z-50 flex justify-center px-6 pb-4 cursor-pointer pointer-events-none">
-            <motion.nav 
-              initial={{ y: 50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
-              className="w-full max-w-[400px] bg-[#080a12]/[0.72] backdrop-blur-[14px] border border-white/[0.08] shadow-[0_8px_30px_rgba(0,0,0,0.35)] rounded-2xl p-1 flex justify-between items-center transform-gpu pointer-events-auto"
+        {/* Settings Overlay */}
+        <AnimatePresence>
+          {isSettingsOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 z-[100] bg-black/90 backdrop-blur-2xl p-6 flex flex-col"
             >
-              {[
-                { id: 'colosseum', icon: Swords, label: 'Арена' },
-                { id: 'market', icon: Store, label: 'Рынок' },
-                { id: 'forge', icon: Hammer, label: 'Кузня' },
-                { id: 'clans', icon: Users, label: 'Кланы' },
-                { id: 'hero', icon: UserIcon, label: 'Герой' }
-              ].map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => setActiveTab(item.id as any)}
-                  className="relative flex-1 group"
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="text-2xl font-black uppercase italic tracking-tighter text-white">Настройки</h2>
+                <button 
+                  onClick={() => setIsSettingsOpen(false)}
+                  className="p-3 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all"
                 >
-                  <div className={`flex flex-col items-center gap-1 py-1.5 transition-all duration-500 relative z-10 ${
-                    activeTab === item.id ? 'text-blue-500' : 'text-white/20 hover:text-white/40'
-                  }`}>
-                    <item.icon className={`w-4 h-4 transition-all duration-500 ${
-                      activeTab === item.id ? 'scale-110 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]' : 'group-hover:scale-110'
-                    }`} />
-                    <span className={`text-[6px] font-black uppercase tracking-[0.2em] transition-all duration-500 ${
-                      activeTab === item.id ? 'opacity-100' : 'opacity-0 scale-75'
-                    }`}>
-                      {item.label}
-                    </span>
-                    
-                    {activeTab === item.id && (
-                      <motion.div 
-                        layoutId="activeTabIndicator"
-                        className="absolute inset-0 bg-white/5 rounded-xl -z-10 border border-white/10 transform-gpu"
-                        transition={{ type: "tween", duration: 0.3 }}
-                      />
-                    )}
-                    {activeTab === item.id && (
-                      <motion.div 
-                        layoutId="activeTabMarker"
-                        className="absolute -bottom-0.5 w-0.5 h-0.5 bg-blue-500 rounded-full shadow-[0_0_8px_rgba(59,130,246,1)]"
-                        transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
-                      />
-                    )}
-                  </div>
+                  <ArrowLeft className="w-5 h-5 text-white" />
                 </button>
-              ))}
-            </motion.nav>
-          </div>
+              </div>
+
+              <div className="flex-1 overflow-y-auto space-y-6 scrollbar-hide pb-20">
+                {/* Account Settings */}
+                <div className="space-y-4">
+                  <p className="text-[10px] uppercase font-black tracking-widest text-white/30 pl-2">Аккаунт</p>
+                  <div className="grid gap-3">
+                    <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-2">
+                      <label className="text-[8px] uppercase font-bold text-white/40">Имя пользователя</label>
+                      <div className="flex items-center gap-3">
+                        <UserIcon className="w-4 h-4 text-game-blue" />
+                        <input 
+                          type="text" 
+                          value={username} 
+                          onChange={(e) => setUsername(e.target.value)}
+                          className="bg-transparent border-none p-0 focus:ring-0 text-sm font-bold text-white w-full outline-hidden"
+                        />
+                      </div>
+                    </div>
+                    <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-2">
+                      <label className="text-[8px] uppercase font-bold text-white/40">Пароль</label>
+                      <div className="flex items-center gap-3">
+                        <Lock className="w-4 h-4 text-game-blue" />
+                        <input 
+                          type="password" 
+                          value={password} 
+                          onChange={(e) => setPassword(e.target.value)}
+                          className="bg-transparent border-none p-0 focus:ring-0 text-sm font-bold text-white w-full outline-hidden"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Character Settings */}
+                <div className="space-y-4">
+                  <p className="text-[10px] uppercase font-black tracking-widest text-white/30 pl-2">Персонаж</p>
+                  <div className="grid grid-cols-2 gap-3">
+                    <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-3">
+                      <p className="text-[8px] uppercase font-bold text-white/40">Пол</p>
+                      <div className="flex gap-2">
+                        <button 
+                          onClick={() => setHeroGender('male')}
+                          className={`flex-1 py-2 rounded-xl text-[9px] font-black uppercase transition-all ${heroGender === 'male' ? 'bg-game-blue text-white' : 'bg-white/5 text-white/40'}`}
+                        >
+                          Муж
+                        </button>
+                        <button 
+                          onClick={() => setHeroGender('female')}
+                          className={`flex-1 py-2 rounded-xl text-[9px] font-black uppercase transition-all ${heroGender === 'female' ? 'bg-game-blue text-white' : 'bg-white/5 text-white/40'}`}
+                        >
+                          Жен
+                        </button>
+                      </div>
+                    </div>
+                    <div className="bg-white/5 border border-white/10 p-4 rounded-2xl space-y-3">
+                      <p className="text-[8px] uppercase font-bold text-white/40">Раса</p>
+                      <div className="flex gap-2">
+                        <button 
+                          onClick={() => setHeroRace('human')}
+                          className={`flex-1 py-2 rounded-xl text-[9px] font-black uppercase transition-all ${heroRace === 'human' ? 'bg-game-emerald text-white' : 'bg-white/5 text-white/40'}`}
+                        >
+                          Чел
+                        </button>
+                        <button 
+                          onClick={() => setHeroRace('mage')}
+                          className={`flex-1 py-2 rounded-xl text-[9px] font-black uppercase transition-all ${heroRace === 'mage' ? 'bg-game-emerald text-white' : 'bg-white/5 text-white/40'}`}
+                        >
+                          Маг
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* System Settings */}
+                <div className="space-y-4">
+                  <p className="text-[10px] uppercase font-black tracking-widest text-white/30 pl-2">Система</p>
+                  <div className="grid gap-3">
+                    <button 
+                      onClick={toggleFullScreen}
+                      className="w-full bg-white/5 border border-white/10 p-5 rounded-2xl flex items-center justify-between group hover:bg-white/10 transition-all"
+                    >
+                      <div className="flex items-center gap-4">
+                        <Monitor className="w-5 h-5 text-white/40 group-hover:text-white transition-colors" />
+                        <span className="text-xs font-bold uppercase tracking-widest text-white/80 group-hover:text-white">На весь экран</span>
+                      </div>
+                    </button>
+                    <button 
+                      onClick={() => {
+                        setIsSettingsOpen(false);
+                        setScreen('welcome');
+                      }}
+                      className="w-full bg-red-500/10 border border-red-500/20 p-5 rounded-2xl flex items-center justify-between group hover:bg-red-500/20 transition-all"
+                    >
+                      <div className="flex items-center gap-4">
+                        <LogOut className="w-5 h-5 text-red-500/60 group-hover:text-red-500 transition-colors" />
+                        <span className="text-xs font-bold uppercase tracking-widest text-red-500/80 group-hover:text-red-500">Выход из аккаунта</span>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              {/* UserID at bottom */}
+              <div className="pt-6 border-t border-white/5 text-center">
+                <p className="text-[10px] uppercase font-black tracking-[0.5em] text-white/10">UserID: {userId}</p>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Inventory Overlay */}
+        <AnimatePresence>
+          {isInventoryOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 z-[100] bg-black/95 backdrop-blur-2xl p-6 flex flex-col"
+            >
+              <div className="flex items-center justify-between mb-6">
+                <h2 className="text-2xl font-black uppercase italic tracking-tighter text-amber-500">Инвентарь</h2>
+                <button 
+                  onClick={() => setIsInventoryOpen(false)}
+                  className="p-3 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition-all"
+                >
+                  <ArrowLeft className="w-5 h-5 text-white" />
+                </button>
+              </div>
+
+              {/* Tabs */}
+              <div className="flex gap-2 overflow-x-auto scrollbar-hide mb-6 pb-2">
+                {[
+                  { id: 'weapons', label: '1. Оружие' },
+                  { id: 'armor', label: '2. Доспехи' },
+                  { id: 'jewelry', label: '3. Украшения' },
+                  { id: 'potions', label: '4. Зелья и Эликсиры' },
+                  { id: 'misc', label: '5. Руны, Книги и т.д.' },
+                ].map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => setInventoryTab(tab.id as any)}
+                    className={`flex-shrink-0 px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] transition-all whitespace-nowrap ${
+                      inventoryTab === tab.id 
+                        ? 'bg-amber-500/20 border border-amber-500/50 text-amber-400 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
+                        : 'bg-white/5 border border-white/5 text-white/30 hover:text-white/50'
+                    }`}
+                  >
+                    {tab.label}
+                  </button>
+                ))}
+              </div>
+
+              <div className="flex-1 overflow-y-auto scrollbar-hide pb-20">
+                <div className="h-full flex flex-col items-center justify-center p-8 text-center bg-white/5 rounded-[2.5rem] border border-white/5 border-dashed">
+                  <Store className="w-12 h-12 text-white/10 mx-auto mb-4" />
+                  <p className="text-[10px] uppercase tracking-[0.4em] text-white/20 font-black mb-2">Пусто</p>
+                  <p className="text-[8px] uppercase tracking-[0.1em] text-white/20">В этом разделе пока ничего нет</p>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Persistent Bottom Nav - HUD Interface */}
+        <div className="fixed bottom-0 inset-x-0 z-50 flex justify-center px-6 pb-4 cursor-pointer pointer-events-none">
+          <motion.nav 
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ delay: 0.5, type: "spring", stiffness: 100 }}
+            className="w-full max-w-[400px] bg-[#080a12]/[0.72] backdrop-blur-[14px] border border-white/[0.08] shadow-[0_8px_30px_rgba(0,0,0,0.35)] rounded-2xl p-1 flex justify-between items-center transform-gpu pointer-events-auto"
+          >
+            {[
+              { id: 'colosseum', icon: Swords, label: 'Арена' },
+              { id: 'market', icon: Store, label: 'Рынок' },
+              { id: 'forge', icon: Hammer, label: 'Кузня' },
+              { id: 'clans', icon: Users, label: 'Кланы' },
+              { id: 'hero', icon: UserIcon, label: 'Герой' }
+            ].map((item) => (
+              <button
+                key={item.id}
+                onClick={() => setActiveTab(item.id as any)}
+                className="relative flex-1 group"
+              >
+                <div className={`flex flex-col items-center gap-1 py-1.5 transition-all duration-500 relative z-10 ${
+                  activeTab === item.id ? 'text-game-blue' : 'text-white/20 hover:text-white/40'
+                }`}>
+                  <item.icon className={`w-4 h-4 transition-all duration-500 ${
+                    activeTab === item.id ? 'scale-110 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]' : 'group-hover:scale-110'
+                  }`} />
+                  <span className={`text-[6px] font-black uppercase tracking-[0.2em] transition-all duration-500 ${
+                    activeTab === item.id ? 'opacity-100' : 'opacity-0 scale-75'
+                  }`}>
+                    {item.label}
+                  </span>
+                  
+                  {activeTab === item.id && (
+                    <motion.div 
+                      layoutId="activeTabIndicator"
+                      className="absolute inset-0 bg-white/5 rounded-xl -z-10 border border-white/10 transform-gpu"
+                      transition={{ type: "tween", duration: 0.3 }}
+                    />
+                  )}
+                  {activeTab === item.id && (
+                    <motion.div 
+                      layoutId="activeTabMarker"
+                      className="absolute -bottom-0.5 w-0.5 h-0.5 bg-game-blue rounded-full shadow-[0_0_8px_rgba(59,130,246,1)]"
+                      transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
+                    />
+                  )}
+                </div>
+              </button>
+            ))}
+          </motion.nav>
+        </div>
         </div>
       </div>
     );
@@ -883,7 +888,7 @@ export default function App() {
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-transparent to-black/90" />
           {/* Subtle Scanning Lines Effect */}
-          <div className="absolute inset-0 bg-white/[0.02] bg-[size:40px_40px]" />
+          <div className="absolute inset-0 bg-grid-white/[0.02] bg-[size:40px_40px]" />
         </div>
 
         <motion.div 
@@ -930,12 +935,12 @@ export default function App() {
               onClick={() => setScreen('city')}
               whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(59, 130, 246, 0.4)" }}
               whileTap={{ scale: 0.95 }}
-              className="relative px-12 py-5 bg-white/5 backdrop-blur-md border border-white/20 text-white rounded-2xl text-[11px] font-black tracking-[0.3em] uppercase overflow-hidden group transform-gpu"
+              className="relative px-12 py-5 bg-white/5 backdrop-blur-sm border border-white/20 text-white rounded-2xl text-[11px] font-black tracking-[0.3em] uppercase overflow-hidden group transform-gpu"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
               <span className="relative z-10">Войти в мир</span>
-              <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-blue-500 rounded-tr-md" />
-              <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-blue-500 rounded-bl-md" />
+              <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-game-blue rounded-tr-md" />
+              <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-game-blue rounded-bl-md" />
             </motion.button>
           </motion.div>
 
