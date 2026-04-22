@@ -1,0 +1,97 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Global Deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Primitives
+    function isSignedIn() { return request.auth != null && request.auth.token.email_verified == true; }
+    function incoming() { return request.resource.data; }
+    function existing() { return resource.data; }
+    function isValidId(id) { return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$'); }
+    
+    // Validity checks
+    function isValidUser(data) {
+      return data.keys().hasAll(['userId', 'username', 'email', 'createdAt']) &&
+        data.userId is string && data.userId.size() <= 128 && data.userId == request.auth.uid &&
+        data.username is string && data.username.size() <= 50 &&
+        data.email is string && data.email.size() <= 120 &&
+        (data.get('gender', 'male') in ['male', 'female']) &&
+        (data.get('race', 'human') in ['human', 'mage']) &&
+        (data.get('aboutMe', '') is string && data.get('aboutMe', '').size() <= 500) &&
+        (data.get('hideAllInfo', false) is bool) &&
+        data.createdAt is number;
+    }
+
+    function isValidUserPrivate(data) {
+      return (data.get('realName', '') is string && data.get('realName', '').size() <= 100) &&
+        (data.get('dob', '') is string && data.get('dob', '').size() <= 20) &&
+        (data.get('showRealName', false) is bool) &&
+        (data.get('showDob', false) is bool);
+    }
+
+    function isValidUserStats(data) {
+      return data.keys().hasAll(['level', 'experience', 'strength', 'agility', 'intuition', 'endurance', 'intelligence', 'wisdom', 'matchesPlayed', 'wins', 'losses']) &&
+        data.level is number &&
+        data.experience is number &&
+        data.strength is number &&
+        data.agility is number &&
+        data.intuition is number &&
+        data.endurance is number &&
+        data.intelligence is number &&
+        data.wisdom is number &&
+        data.matchesPlayed is number &&
+        data.wins is number &&
+        data.losses is number;
+    }
+
+    match /users/{userId} {
+      allow get: if isSignedIn() && isValidId(userId);
+      // Custom rule so query works if user doesn't hide info, or if looking at self:
+      allow list: if isSignedIn() && isValidId(userId) && (resource.data.userId == request.auth.uid || resource.data.hideAllInfo == false);
+      
+      allow create: if isSignedIn() && isValidId(userId) && userId == request.auth.uid &&
+        isValidUser(incoming()) && incoming().createdAt == request.time.toMillis() &&
+        incoming().keys().size() <= 8;
+
+      allow update: if isSignedIn() && isValidId(userId) && userId == request.auth.uid &&
+        isValidUser(incoming()) && 
+        incoming().diff(existing()).affectedKeys().hasOnly(['username', 'gender', 'race', 'aboutMe', 'hideAllInfo']) &&
+        incoming().userId == existing().userId &&
+        incoming().email == existing().email &&
+        incoming().createdAt == existing().createdAt;
+    }
+
+    match /users/{userId}/private/info {
+      allow get: if isSignedIn() && isValidId(userId) && userId == request.auth.uid;
+      allow list: if false; // Private PII, never list
+
+      allow create: if isSignedIn() && isValidId(userId) && userId == request.auth.uid &&
+        isValidUserPrivate(incoming()) && incoming().keys().size() <= 4 &&
+        exists(/databases/$(database)/documents/users/$(userId));
+
+      allow update: if isSignedIn() && isValidId(userId) && userId == request.auth.uid &&
+        isValidUserPrivate(incoming()) && 
+        incoming().diff(existing()).affectedKeys().hasOnly(['realName', 'dob', 'showRealName', 'showDob']);
+    }
+
+    match /users/{userId}/stats/current {
+      allow get: if isSignedIn() && isValidId(userId);
+      allow list: if isSignedIn() && isValidId(userId) && get(/databases/$(database)/documents/users/$(userId)).data.hideAllInfo == false;
+
+      // Stats are initialized on creation
+      allow create: if isSignedIn() && isValidId(userId) && userId == request.auth.uid &&
+        isValidUserStats(incoming()) && incoming().keys().size() == 11 &&
+        exists(/databases/$(database)/documents/users/$(userId));
+
+      // User cannot update stats directly. Admin logic or server handles stats, but assuming client writes stats on level up
+      // For this app, let's allow it temporarily with specific constraints
+      allow update: if isSignedIn() && isValidId(userId) && userId == request.auth.uid &&
+        isValidUserStats(incoming()) &&
+        incoming().diff(existing()).affectedKeys().hasOnly(['strength', 'agility', 'intuition', 'endurance', 'intelligence', 'wisdom']);
+    }
+  }
+}
